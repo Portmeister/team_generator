@@ -38,7 +38,7 @@ function mgrInfo() {
             message: "What is your Manager's office number?",
         },
     ]).then(mgrAnswers => {
-        let mgr = new Mgr(mgrAnswers.mgrName, mgrAnswers.mgrId, mgrAnswers.mgrEmail, mgrAnswers.mgrOfficeNum)
+        let manager = new Manager(mgrAnswers.mgrName, mgrAnswers.mgrId, mgrAnswers.mgrEmail, mgrAnswers.mgrOfficeNum)
     })
 }
 
