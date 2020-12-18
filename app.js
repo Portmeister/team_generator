@@ -69,13 +69,13 @@ function teamSupport() {
             type: 'input',
             name: 'github',
             message: 'GitHub Username?',
-            when: (userInput) => userInput.employeeRole === "Engineer"
+            when: (userInput) => userInput.supportRole === "Engineer"
         },
         {
             type: 'input',
             name: 'internSchool',
             message: "Intern's School?",
-            when: (userInput) => userInput.employeeRole === "Intern"
+            when: (userInput) => userInput.supportRole === "Intern"
         },
         {
             type: 'confirm',
@@ -83,58 +83,13 @@ function teamSupport() {
             message: "Do you wish to add another support role to the team?"
         }
     ]).then(answers => {
-        
+        if (answers.supportRole === "Engineer") {
+            const employee = new Engineer(answers.employeeName, answers.employeeId, answers.employeeEmail, answers.github);
+        } else if (answers.supportRole === "Intern") {
+            const employee = new Intern(answers.employeeName, answers.employeeId, answers.employeeEmail, answers.internSchool);
+        }
     })
 }
-
-const questions = [
-    
-    {
-        type: 'input',
-        name: 'descriptionThree',
-        message: 'What makes your project stand out?',
-    },
-    {
-        type: 'input',
-        name: 'features',
-        message: 'Key features of your project?',
-    },
-    {
-        type: 'input',
-        name: 'installation',
-        message: 'Steps required to install? Provide a step-by-step description.',
-    },
-    {
-        type: 'input',
-        name: 'usage',
-        message: 'Instructions/examples for use?',
-    },
-    {
-        type: 'input',
-        name: 'credits',
-        message: 'Collaborators? Provide links to their GitHub profiles.',
-        default: "No collaborators.",
-    },
-    {
-        type: 'input',
-        name: 'creditsOne',
-        message: 'Any third-party assets? List creators with links to their primary web presence.',
-        default: "No third-party assets.",
-    },
-    {
-        type: 'input',
-        name: 'creditsTwo',
-        message: 'Follow tutorials? include links to those here.',
-        default: "No tutorials.",
-    },
-    {
-        type: 'input',
-        name: 'test',
-        message: 'Test Instructions?',
-        default: 'No Special Test Instructions Needed.'
-    },
-    
-];
 
 
 // function to write README file
