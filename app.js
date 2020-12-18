@@ -42,6 +42,50 @@ function mgrInfo() {
     })
 }
 
+function teamSupport() {
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: 'supportRole',
+            message: 'Type of employee support role to be added?',
+            choices: ['Engineer', 'Intern'],
+        },
+        {
+            type: 'input',
+            name: 'employeeName',
+            message: "What is your Employee's name?",
+        },
+        {
+            type: 'input',
+            name: 'employeeId',
+            message: "What is your Employee's id?",
+        },
+        {
+            type: 'input',
+            name: 'employeeEmail',
+            message: "What is your Employee's email?",
+        },
+        {
+            type: 'input',
+            name: 'github',
+            message: 'GitHub Username?',
+            when: (userInput) => userInput.employeeRole === "Engineer"
+        },
+        {
+            type: 'input',
+            name: 'internSchool',
+            message: "Intern's School?",
+            when: (userInput) => userInput.employeeRole === "Intern"
+        },
+        {
+            type: 'confirm',
+            name: 'newRole',
+            message: "Do you wish to add another support role to the team?"
+        }
+    ]).then(answers => {
+        
+    })
+}
 
 const questions = [
     
@@ -89,25 +133,7 @@ const questions = [
         message: 'Test Instructions?',
         default: 'No Special Test Instructions Needed.'
     },
-    {
-        type: 'list',
-        name: 'license',
-        message: 'License type?',
-        choices: ['Apache', 'GNU', 'MIT', 'None'],
-        default: "Press Enter if no license.",
-    },
-    {
-        type: 'input',
-        name: 'github',
-        message: 'GitHub Username?',
-        default: 'I do not have a GitHub account',
-    },
-    {
-        type: 'input',
-        name: 'email',
-        message: 'Email address?',
-        default: 'I do not want to be contacted by email',
-    },
+    
 ];
 
 
