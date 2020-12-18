@@ -14,6 +14,131 @@ const render = require("./lib/htmlRenderer");
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
+
+function mgrInfo() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'mgrName',
+            message: "What is your Manager's name?",
+        },
+        {
+            type: 'input',
+            name: 'mgrId',
+            message: "What is your Manager's id?",
+        },
+        {
+            type: 'input',
+            name: 'mgrEmail',
+            message: "What is your Manager's email?",
+        },
+        {
+            type: 'input',
+            name: 'mgrOfficeNum',
+            message: "What is your Manager's office number?",
+        },
+    ]).then(mgrAnswers => {
+        let mgr = new Mgr(mgrAnswers.mgrName, mgrAnswers.mgrId, mgrAnswers.mgrEmail, mgrAnswers.mgrOfficeNum)
+    })
+}
+
+
+const questions = [
+    
+    {
+        type: 'input',
+        name: 'descriptionThree',
+        message: 'What makes your project stand out?',
+    },
+    {
+        type: 'input',
+        name: 'features',
+        message: 'Key features of your project?',
+    },
+    {
+        type: 'input',
+        name: 'installation',
+        message: 'Steps required to install? Provide a step-by-step description.',
+    },
+    {
+        type: 'input',
+        name: 'usage',
+        message: 'Instructions/examples for use?',
+    },
+    {
+        type: 'input',
+        name: 'credits',
+        message: 'Collaborators? Provide links to their GitHub profiles.',
+        default: "No collaborators.",
+    },
+    {
+        type: 'input',
+        name: 'creditsOne',
+        message: 'Any third-party assets? List creators with links to their primary web presence.',
+        default: "No third-party assets.",
+    },
+    {
+        type: 'input',
+        name: 'creditsTwo',
+        message: 'Follow tutorials? include links to those here.',
+        default: "No tutorials.",
+    },
+    {
+        type: 'input',
+        name: 'test',
+        message: 'Test Instructions?',
+        default: 'No Special Test Instructions Needed.'
+    },
+    {
+        type: 'list',
+        name: 'license',
+        message: 'License type?',
+        choices: ['Apache', 'GNU', 'MIT', 'None'],
+        default: "Press Enter if no license.",
+    },
+    {
+        type: 'input',
+        name: 'github',
+        message: 'GitHub Username?',
+        default: 'I do not have a GitHub account',
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'Email address?',
+        default: 'I do not want to be contacted by email',
+    },
+];
+
+
+// function to write README file
+//function writeToFile(fileName, data) {
+
+//}
+
+// function to initialize program
+function init() {
+    inquirer
+    .prompt(questions)
+    .then(answers => {
+   
+    const template = generateMarkdown(answers);
+
+    fs.writeFile('README.md', template, (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');
+      });
+    })
+    .catch(error => {
+        console.log(error);
+    }
+  );
+}
+
+// function call to initialize program
+init();
+
+
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
