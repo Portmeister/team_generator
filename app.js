@@ -14,6 +14,8 @@ const render = require("./lib/htmlRenderer");
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
+const team = [];
+
 
 function mgrInfo() {
     inquirer.prompt([
@@ -84,9 +86,11 @@ function teamSupport() {
         }
     ]).then(answers => {
         if (answers.supportRole === "Engineer") {
-            const employee = new Engineer(answers.employeeName, answers.employeeId, answers.employeeEmail, answers.github);
+            const teamMember = new Engineer(answers.employeeName, answers.employeeId, answers.employeeEmail, answers.github);
+            team.push(teamMember);
         } else if (answers.supportRole === "Intern") {
-            const employee = new Intern(answers.employeeName, answers.employeeId, answers.employeeEmail, answers.internSchool);
+            const teamMember = new Intern(answers.employeeName, answers.employeeId, answers.employeeEmail, answers.internSchool);
+            team.push(teamMember);
         }
     })
 }
