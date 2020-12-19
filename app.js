@@ -15,10 +15,16 @@ const render = require("./lib/htmlRenderer");
 // and to create objects for each team member (using the correct classes as blueprints!)
 
 const team = [];
-
+let mgr;
+let title;
 
 function mgrInfo() {
     inquirer.prompt([
+        {
+            type: 'input',
+            name: 'title',
+            message: "What is the title of this team?",
+        },
         {
             type: 'input',
             name: 'mgrName',
@@ -92,32 +98,32 @@ function teamSupport() {
             const teamMember = new Intern(answers.employeeName, answers.employeeId, answers.employeeEmail, answers.internSchool);
             team.push(teamMember);
         }
-    })
+        if (answers.newRole === true) {
+            teamSupport();
+        } else {
+
+            var main = fs.readFileSync('./templates/main.html', 'utf8');
+            main = main.replace(/{{title}}/g, title);
+
+            var mgrPos = fs.readFileSync('./templates/manager.html', 'utf8');
+            mgrPos = mgrPos.replace('{{name}}', manager.getName());
+            mgrPos = mgrPos.replace('{{role}}', manager.getRole());
+            mgrPos = mgrPos.replace('{{id}}', manager.getId());
+            mgrPos = mgrPos.replace('{{email}}', manager.getEmail());
+            mgrPos = mgrPos.replace('{{officeNum}}', manager.getOfficeNum());
+
+            var cards = mgrPos;
+            for(var i = 0; i < team.length; i++) {
+                var employee = team[i];
+                cards += renderTeam(employee);
+            }
+
+            main = main.replace('{{cards}}', cards)
+            fs.writeFileSync('./output/team.html', main);
+            console.log("the team.html has been generated in output");
+        }
+    });
 }
-
-
-// function to initialize program
-function init() {
-    inquirer
-    .prompt(questions)
-    .then(answers => {
-   
-    const template = generateMarkdown(answers);
-
-    fs.writeFile('README.md', template, (err) => {
-        if (err) throw err;
-        console.log('The file has been saved!');
-      });
-    })
-    .catch(error => {
-        console.log(error);
-    }
-  );
-}
-
-// function call to initialize program
-init();
-
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
