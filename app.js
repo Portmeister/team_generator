@@ -15,16 +15,9 @@ const render = require("./lib/htmlRenderer");
 // and to create objects for each team member (using the correct classes as blueprints!)
 
 const team = [];
-let mgr;
-let title;
 
 function mgrInfo() {
     inquirer.prompt([
-        {
-            type: 'input',
-            name: 'title',
-            message: "What is the title of this team?",
-        },
         {
             type: 'input',
             name: 'mgrName',
