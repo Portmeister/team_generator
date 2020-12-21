@@ -103,14 +103,16 @@ function teamSupport() {
         if (answers.newRole === true) {
             teamSupport();
         } else {
-            console.log(team)
+            //console.log(team)
             //render(team);
-            /*fs.writeFile('README.md', template, (err) => {
+            //console.log(render(team));
+            fs.writeFile(outputPath, render(team), (err) => {
                 if (err) throw err;
-                console.log('The file has been saved!');*/
-              };
-        }
-    );
+                console.log('The file has been saved!');
+              })
+        };
+    })
+
 }
 
 mgrInfo();
