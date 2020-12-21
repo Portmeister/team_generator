@@ -47,6 +47,7 @@ function mgrInfo() {
         },
     ]).then(mgrAnswers => {
         let manager = new Manager(mgrAnswers.mgrName, mgrAnswers.mgrId, mgrAnswers.mgrEmail, mgrAnswers.mgrOfficeNum);
+        team.push(manager);
         teamSupport();
     })
 }
@@ -101,8 +102,15 @@ function teamSupport() {
         }
         if (answers.newRole === true) {
             teamSupport();
-        } 
-    });
+        } else {
+            console.log(team)
+            //render(team);
+            /*fs.writeFile('README.md', template, (err) => {
+                if (err) throw err;
+                console.log('The file has been saved!');*/
+              };
+        }
+    );
 }
 
 mgrInfo();
