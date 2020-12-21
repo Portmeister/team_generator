@@ -46,7 +46,8 @@ function mgrInfo() {
             message: "What is your Manager's office number?",
         },
     ]).then(mgrAnswers => {
-        let manager = new Manager(mgrAnswers.mgrName, mgrAnswers.mgrId, mgrAnswers.mgrEmail, mgrAnswers.mgrOfficeNum)
+        let manager = new Manager(mgrAnswers.mgrName, mgrAnswers.mgrId, mgrAnswers.mgrEmail, mgrAnswers.mgrOfficeNum);
+        teamSupport();
     })
 }
 
@@ -100,30 +101,11 @@ function teamSupport() {
         }
         if (answers.newRole === true) {
             teamSupport();
-        } else {
-
-            var main = fs.readFileSync('./templates/main.html', 'utf8');
-            main = main.replace(/{{title}}/g, title);
-
-            var mgrPos = fs.readFileSync('./templates/manager.html', 'utf8');
-            mgrPos = mgrPos.replace('{{name}}', manager.getName());
-            mgrPos = mgrPos.replace('{{role}}', manager.getRole());
-            mgrPos = mgrPos.replace('{{id}}', manager.getId());
-            mgrPos = mgrPos.replace('{{email}}', manager.getEmail());
-            mgrPos = mgrPos.replace('{{officeNum}}', manager.getOfficeNum());
-
-            var cards = mgrPos;
-            for(var i = 0; i < team.length; i++) {
-                var employee = team[i];
-                cards += renderTeam(employee);
-            }
-
-            main = main.replace('{{cards}}', cards)
-            fs.writeFileSync('./output/team.html', main);
-            console.log("the team.html has been generated in output");
-        }
+        } 
     });
 }
+
+mgrInfo();
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
