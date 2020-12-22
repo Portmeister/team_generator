@@ -1,0 +1,17 @@
+body {
+    background-color: darkgray;
+}
+
+.jumbotron {
+    background-color: red;
+}
+
+.card-header {
+    background-color: blue;
+    color: white;
+    border-bottom: 3px red solid;
+}
+
+.list-group, .list-group-item {
+    border: 3px solid black;
+}
